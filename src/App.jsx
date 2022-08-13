@@ -10,10 +10,10 @@ export default function App() {
   return (
     <html>
       <head>
-        <title>Hello from JSX</title>
+        <title>Deno chat</title>
       </head>
       <body>
-        <h1>Hello world</h1>
+        <h1>Deno chat</h1>
       </body>
     </html>
   );

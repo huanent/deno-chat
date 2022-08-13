@@ -96,4 +96,4 @@ export function addConnection(name: string, socket: WebSocket) {
   };
 }
 
-export const getConnectionNames = () => Object.keys(pool);
+export const getConnectionNames = () => connections;

@@ -15,7 +15,7 @@ export function listen(name: string): Response {
       );
 
       channel.onmessage = (e) => {
-        const message = e.data as ChannelMessage;
+        const message = JSON.parse(e.data) as ChannelMessage;
 
         switch (message.type) {
           case "enter":

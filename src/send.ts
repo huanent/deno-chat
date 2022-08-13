@@ -11,7 +11,7 @@ export function send(name: string, data: any) {
     },
   } as ChannelMessage;
 
-  channel.postMessage(message);
+  channel.postMessage(JSON.stringify(message));
   channel.close();
   return new Response("message sent");
 }

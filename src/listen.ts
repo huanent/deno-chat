@@ -7,6 +7,8 @@ export function listen(name: string): Response {
 
   const stream = new ReadableStream({
     start: (controller) => {
+      controller.enqueue(": Welcome to Deno Chat!\n\n");
+      
       channel.postMessage(
         JSON.stringify({
           type: "enter",
@@ -22,8 +24,8 @@ export function listen(name: string): Response {
             if (typeof message.data == "string") users.push(message.data);
             break;
           case "leave":
-            if (typeof message.data == "string"){
-                users.splice(users.indexOf(message.data), 1);
+            if (typeof message.data == "string") {
+              users.splice(users.indexOf(message.data), 1);
             }
             break;
           case "message":

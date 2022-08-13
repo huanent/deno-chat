@@ -27,7 +27,7 @@ export function listen(name: string): Response {
             }
             break;
           case "message":
-            controller.enqueue(message.data);
+            controller.enqueue(JSON.stringify(message.data));
             break;
 
           default:

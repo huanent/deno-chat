@@ -8,6 +8,11 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
   const name = url.searchParams.get("name");
   const channel = new BroadcastChannel("chat");
 
+  function handlerLeave(user: string) {
+    const index = users.indexOf(user);
+    if (index > -1) users.splice(index, 1);
+  }
+
   const stream = new ReadableStream({
     start: (controller) => {
       controller.enqueue(": Welcome to Deno Chat!\n\n");
@@ -34,7 +39,7 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
             break;
           case "leave":
             if (typeof message.data == "string") {
-              users.splice(users.indexOf(message.data), 1);
+              handlerLeave(message.data);
             }
             break;
           case "message":
@@ -53,6 +58,7 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
           data: name,
         } as ChannelMessage)
       );
+      handlerLeave(name!);
       channel.close();
     },
   });

@@ -21,7 +21,7 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
 
       function handlerMessage(message: Message) {
         if (message.name != name) {
-          controller.enqueue(`data: ${JSON.stringify(message.data)}\n\n`);
+          controller.enqueue(`data: ${JSON.stringify(message)}\n\n`);
         }
       }
 

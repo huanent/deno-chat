@@ -1,8 +1,11 @@
-import { ChannelMessage } from "./types.ts";
+import { HandlerContext } from "https://deno.land/x/fresh@1.0.2/server.ts";
+import { ChannelMessage } from "../../types.ts";
 
 export const users: string[] = [];
 
-export function listen(name: string): Response {
+export const handler = (_req: Request, _ctx: HandlerContext): Response => {
+  const url = new URL(_req.url);
+  const name = url.searchParams.get("name");
   const channel = new BroadcastChannel("chat");
 
   const stream = new ReadableStream({
@@ -51,4 +54,4 @@ export function listen(name: string): Response {
   return new Response(stream.pipeThrough(new TextEncoderStream()), {
     headers: { "content-type": "text/event-stream" },
   });
-}
+};

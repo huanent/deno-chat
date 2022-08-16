@@ -1,9 +1,11 @@
 export interface ChannelMessage {
   type: "enter" | "leave" | "message";
+  from:string
   data: string | Message;
 }
 
 export interface Message {
-  name: string;
+  to?: string;
+  type:string
   data: string;
 }

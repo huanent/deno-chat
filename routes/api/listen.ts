@@ -24,10 +24,17 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
         } as ChannelMessage)
       );
 
-      function handlerMessage(message: Message) {
-        if (message.name != name) {
-          controller.enqueue(`data: ${JSON.stringify(message)}\n\n`);
-        }
+      function handlerMessage(from: string, message: Message) {
+        if (from == name) return;
+        if (message.to && message.to != name) return;
+        
+        controller.enqueue(
+          `data: ${JSON.stringify({
+            from,
+            type: message.type,
+            data: message.data,
+          })}\n\n`
+        );
       }
 
       channel.onmessage = (e) => {
@@ -43,7 +50,7 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
             }
             break;
           case "message":
-            handlerMessage(message.data as Message);
+            handlerMessage(message.from, message.data as Message);
             break;
 
           default:
